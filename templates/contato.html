@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>IFSP - Campus Pirituba</h1>
+    <form action="/" method="post">
+        <ul>
+          <li>
+            <label>Nome</label>
+            <input type="text" name="nome" id="nome-contato" value="{{ contato['nome'] }}" required/>
+          </li>
+          <br>
+          <li>
+            <label>Email</label>
+            <input type="email" name="email" id="email-contato" value="{{ contato['email'] }}" required>
+          </li>
+          <br>
+          <li>
+            <label>Telefone (99) 99999-9999</label>
+            <input type="tel" name="telefone" id="telefone-contato" value="{{ contato['telefone'] }}" required>
+          </li>
+          <br>
+          <li>
+            <label>Assunto</label>
+            <select name="assunto" id="assunto-contato" required>
+              <option value=""> -- Selecione --</option>
+              {%set opcoes = ['Reclamação', 'Sugestão']%}
+              {%for opcao in opcoes%}
+              {%if opcao == contato['assunto']%}
+              <option value="{{ contato['assunto'] }}" selected>{{ contato['assunto'] }}</option>
+              {%else%}
+              <option value="{{ opcao }}">{{ opcao }}</option>
+              {%endif%}
+              {%endfor%}
+            </select>
+          </li>
+          <br>
+          <li>
+            <label>Mensagem</label>
+            <textarea type="text" name="mensagem" id="mensagem-contato" required>{{ contato['mensagem'] }}</textarea>
+          </li>
+          <br>
+          <li>
+            <fieldset>
+              <legend>Opções de Resposta</legend>
+              {%set chk_opcoes = ['Email', 'Telefone']%}
+              {%for chk_opcao in chk_opcoes%}
+              {%if chk_opcao in contato['chk']%}
+              <input type="checkbox" name="chk" id="{{ chk_opcao }}" value="{{ chk_opcao }}" checked>
+              <label>{{ chk_opcao }}</label>
+              {%else%}
+              <input type="checkbox" name="chk" id="{{ chk_opcao }}" value="{{ chk_opcao }}">
+              <label>{{ chk_opcao }}</label>
+              {%endif%}
+              {%endfor%}
+            </fieldset>
+          </li>
+        </ul>
+        <input type="submit" value="Salvar" name="salvar">
+    </form>
+</body>
+</html>
